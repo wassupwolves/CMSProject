@@ -23,7 +23,12 @@ function loadComplete(evt) {
     var li = document.createElement('li');
 
     var a = document.createElement('a');
-    a.setAttribute('href', element.name);
+    if(element.name === 'Home') {
+      a.setAttribute('href', 'index');
+    } else {
+      a.setAttribute('href', element.name);
+    }
+    
     a.innerText = element.name;
 
     li.appendChild(a);
@@ -35,4 +40,6 @@ function loadComplete(evt) {
 
     div.appendChild(paragraphs);
   });
+
+  console.log(document.location.pathname);
 }
