@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 02, 2018 at 12:57 AM
+-- Generation Time: Aug 02, 2018 at 11:40 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -30,20 +30,22 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `main_pages`;
 CREATE TABLE IF NOT EXISTS `main_pages` (
+  `mainpage_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `content` text NOT NULL,
   `can_delete` bit(1) NOT NULL DEFAULT b'1',
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`name`),
+  UNIQUE KEY `main_page_index` (`mainpage_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `main_pages`
 --
 
-INSERT INTO `main_pages` (`name`, `content`, `can_delete`) VALUES
-('About', '<p>This is the about page</p>', b'0'),
-('Contact', '<p>This is our contact page</p>', b'0'),
-('Home', '<p>This is our home page</p>\r\n\r\n<p>With a second paragraph</p>', b'0');
+INSERT INTO `main_pages` (`mainpage_id`, `name`, `content`, `can_delete`) VALUES
+(2, 'About', '<p>This is the about page</p>', b'0'),
+(3, 'Contact', '<p>This is our contact page</p>', b'0'),
+(1, 'Home', '<p>This is our home page</p>\r\n\r\n<p>With a second paragraph</p>', b'0');
 
 -- --------------------------------------------------------
 
