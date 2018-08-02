@@ -1,10 +1,10 @@
 <?php
     //set connection variables
 
-    $host = "10.10.16.205";
-    $username = "root";
-    $password = "Luigi1704372";
-    $db_name = "pokemon"; //database name
+    $host = "localhost";
+    $username = "jhymas";
+    $password = "password";
+    $db_name = "cmsdatabase"; //database name
     //connect to mysql server
     $mysqli = new mysqli($host, $username, $password, $db_name);
 
