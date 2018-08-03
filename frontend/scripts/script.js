@@ -2,20 +2,20 @@ var mainPageData;
 var subPageData;
 var mainPageDataRequest = new XMLHttpRequest();
 var subPageDataRequest = new XMLHttpRequest();
+var mainLandingPage;
   
 loadMainPageNavbar();
-loadSubPageNavbar();
 
 function loadMainPageNavbar() {
+  mainLandingPage = document.location.pathname.slice(1);
+
+  if(mainLandingPage === 'index'){
+    mainLandingPage = 'Home';
+  }
+
   mainPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/main_page_api.php');
   mainPageDataRequest.onload = loadMainPages;
   mainPageDataRequest.send();
-}
-
-function loadSubPageNavbar() {
-  subPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/sub_page_api.php?mainpage_name=about');
-  subPageDataRequest.onload = loadSubPages;
-  subPageDataRequest.send();
 }
 
 function loadMainPages(evt) {
@@ -44,13 +44,22 @@ function loadMainPages(evt) {
 
     navbar.appendChild(li);
 
-    var paragraphs = document.createElement('div');
-    paragraphs.innerHTML = element.content;
+    var paragraphs = document.getElementById('main_content');
+    var p = document.createElement('p');
+    p.innerHTML = element.content;
 
-    div.appendChild(paragraphs);
+    paragraphs.appendChild(p);
   });
 
   console.log(document.location.pathname);
+}
+
+loadSubPageNavbar();
+
+function loadSubPageNavbar() {
+  subPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/sub_page_api.php?mainpage_name=' + mainLandingPage);
+  subPageDataRequest.onload = loadSubPages;
+  subPageDataRequest.send();
 }
 
 function loadSubPages(evt) {
@@ -79,10 +88,11 @@ function loadSubPages(evt) {
 
     navbar.appendChild(li);
 
-    var paragraphs = document.createElement('div');
-    paragraphs.innerHTML = element.content;
+    var paragraphs = document.getElementById('sub_content');
+    var p = document.createElement('p');
+    p.innerHTML = element.content;
 
-    div.appendChild(paragraphs);
+    paragraphs.appendChild(p);
   });
 
   console.log(document.location.pathname);
