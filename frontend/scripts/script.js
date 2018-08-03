@@ -2,16 +2,20 @@ var mainPageData;
 var subPageData;
 var mainPageDataRequest = new XMLHttpRequest();
 var subPageDataRequest = new XMLHttpRequest();
-var mainLandingPage;
+var currentMainPage;
+var currentSubPage;
+var urlParameters;
   
 loadMainPageNavbar();
 
 function loadMainPageNavbar() {
-  mainLandingPage = document.location.pathname.slice(1);
+  urlParameters = getUrlVars();
+  
+  currentMainPage = urlParameters["main_page"];
+  currentSubPage = urlParameters["sub_page"];
 
-  if(mainLandingPage === 'index'){
-    mainLandingPage = 'Home';
-  }
+  if (!currentMainPage)
+    currentMainPage = "Home";
 
   mainPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/main_page_api.php');
   mainPageDataRequest.onload = loadMainPages;
@@ -20,66 +24,75 @@ function loadMainPageNavbar() {
 
 function loadMainPages(evt) {
   mainPageData = JSON.parse(mainPageDataRequest.responseText);
-  console.log(mainPageData);
 
   var navbar = document.createElement('ul');
 
   var div = document.getElementById('main_pages');
   div.appendChild(navbar);
 
+  var pageContent;
+
   mainPageData.forEach(element => {
-    console.log(element);
     var li = document.createElement('li');
 
     var a = document.createElement('a');
-    if(element.name === 'Home') {
-      a.setAttribute('href', 'index');
-    } else {
-      a.setAttribute('href', element.name);
+
+    a.setAttribute('href', '/?main_page=' + element.name);
+
+    var encodedPageName = encodeURI(element.name);
+
+    if ((element.name === 'Home' && !urlParameters["main_page"]) || encodedPageName == urlParameters["main_page"]) {
+      console.log("name found");
+      a.setAttribute('class', 'active');
+      pageContent = element.content;
     }
-    
+
     a.innerText = element.name;
 
     li.appendChild(a);
 
     navbar.appendChild(li);
-
-    var paragraphs = document.getElementById('main_content');
-    var p = document.createElement('p');
-    p.innerHTML = element.content;
-
-    paragraphs.appendChild(p);
   });
 
-  console.log(document.location.pathname);
+  if (!urlParameters['sub_page']) {
+    var paragraphs = document.getElementById('content');
+    var p = document.createElement('p');
+    p.innerHTML = pageContent;
+  
+    paragraphs.appendChild(p);
+  }
+  
 }
 
 loadSubPageNavbar();
 
 function loadSubPageNavbar() {
-  subPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/sub_page_api.php?mainpage_name=' + mainLandingPage);
+  subPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/sub_page_api.php?mainpage_name=' + currentMainPage);
   subPageDataRequest.onload = loadSubPages;
   subPageDataRequest.send();
 }
 
 function loadSubPages(evt) {
+
   subPageData = JSON.parse(subPageDataRequest.responseText);
-  console.log(subPageData);
 
   var navbar = document.createElement('ul');
 
   var div = document.getElementById('sub_pages');
   div.appendChild(navbar);
 
+  var pageData;
+
   subPageData.forEach(element => {
-    console.log(element);
     var li = document.createElement('li');
 
     var a = document.createElement('a');
-    if(element.name === 'Home') {
-      a.setAttribute('href', 'index');
-    } else {
-      a.setAttribute('href', element.name);
+    
+    a.setAttribute('href', '?main_page=' + currentMainPage + '&sub_page=' + element.name);
+
+    if (urlParameters["sub_page"] == encodeURI(element.name)) {
+      a.setAttribute('class', 'active');
+      pageData = element.content;
     }
     
     a.innerText = element.name;
@@ -87,13 +100,21 @@ function loadSubPages(evt) {
     li.appendChild(a);
 
     navbar.appendChild(li);
-
-    var paragraphs = document.getElementById('sub_content');
-    var p = document.createElement('p');
-    p.innerHTML = element.content;
-
-    paragraphs.appendChild(p);
   });
 
-  console.log(document.location.pathname);
+  if (pageData) {
+    var paragraphs = document.getElementById('content');
+    var p = document.createElement('p');
+    p.innerHTML = pageData;
+  
+    paragraphs.appendChild(p);
+  }
+}
+
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      vars[key] = value;
+  });
+  return vars;
 }
