@@ -7,8 +7,8 @@ var currentSubPage;
 var urlParameters;
 var canDeletePage;
   
-loadMainPageNavbar();
 showFooter();
+loadMainPageNavbar();
 
 function loadMainPageNavbar() {
   urlParameters = getUrlVars();
@@ -45,7 +45,6 @@ function loadMainPages(evt) {
     var encodedPageName = encodeURI(element.name);
 
     if ((element.name === 'Home' && !urlParameters["main_page"]) || encodedPageName == urlParameters["main_page"]) {
-      console.log("name found");
       a.setAttribute('class', 'active');
       pageContent = element.content;
 
@@ -90,6 +89,7 @@ function loadMainPages(evt) {
     var paragraphs = document.getElementById('content');
     var p = document.createElement('p');
     p.innerHTML = pageContent;
+    p.setAttribute('id', 'cmsContent');
 
     if (getSession()) {
       p.contentEditable = 'true';
@@ -147,6 +147,10 @@ function loadSubPages(evt) {
     var paragraphs = document.getElementById('content');
     var p = document.createElement('p');
     p.innerHTML = pageData;
+    if (getSession()) {
+      p.contentEditable = 'true';
+    }
+    p.setAttribute('id', 'cmsContent');
   
     paragraphs.appendChild(p);
   }
@@ -190,11 +194,38 @@ function appendFooter(){
 }
 
 function saveData(){
-  console.log('Save');
+  console.log("Save");
+
+  if (!getSession())
+    return;
+
+  var isSubPage = urlParameters["sub_page"];
+  var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
+  var url = 'http://localhost/CMSAssignment/backend/edit_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
+  var request = new XMLHttpRequest();
+  var payload = document.getElementById('cmsContent').innerHTML;
+  request.open('POST', url);
+  request.send(payload);
+  request.onload = function(evt) {
+    if (request.responseText === 'Success!') {
+      alert("Update page content!");
+      location.reload(false);
+    }
+  }
 }
 
 function deletePage(){
-  console.log('Delete');
+  if (!getSession())
+    return;
+
+  var isSubPage = urlParameters["sub_page"];
+  var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
+  var url = 'http://localhost/CMSAssignment/backend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
+  var request = new XMLHttpRequest();
+
+  request.open('GET', url);
+  request.send();
+
   document.location = '/';
 }
 
