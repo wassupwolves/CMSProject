@@ -15,7 +15,7 @@
     }
 
     $myArray = array();
-    $query = "select name, content, mainpage_id
+    $query = "select *
                 from main_pages
                 order by mainpage_id";
                 

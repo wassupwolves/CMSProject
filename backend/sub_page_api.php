@@ -15,7 +15,7 @@
     }
 
     $myArray = array();
-    $query = "select name, content
+    $query = "select *
                 from sub_pages
                 where main_page_name = '".$mysqli->real_escape_string($_REQUEST['mainpage_name'])."'";
                 

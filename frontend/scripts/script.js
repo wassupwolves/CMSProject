@@ -5,6 +5,7 @@ var subPageDataRequest = new XMLHttpRequest();
 var currentMainPage;
 var currentSubPage;
 var urlParameters;
+var canDeletePage;
   
 loadMainPageNavbar();
 
@@ -24,6 +25,7 @@ function loadMainPageNavbar() {
 
 function loadMainPages(evt) {
   mainPageData = JSON.parse(mainPageDataRequest.responseText);
+  canDeletePage = false;
 
   var navbar = document.createElement('ul');
 
@@ -45,6 +47,10 @@ function loadMainPages(evt) {
       console.log("name found");
       a.setAttribute('class', 'active');
       pageContent = element.content;
+
+      if(element.can_delete === '1' && !urlParameters["sub_page"]){
+        canDeletePage = true;
+      }
     }
 
     a.innerText = element.name;
@@ -72,7 +78,6 @@ function loadMainPages(evt) {
     }
   } else {
     admin_a.setAttribute('href', '/admin');
-
   }
 
   admin_a.innerText = getSession() ? 'Logout' : 'Login';
@@ -93,6 +98,7 @@ function loadMainPages(evt) {
   }
 
   showFooter();
+  appendFooter();
 }
 
 loadSubPageNavbar();
@@ -104,8 +110,8 @@ function loadSubPageNavbar() {
 }
 
 function loadSubPages(evt) {
-
   subPageData = JSON.parse(subPageDataRequest.responseText);
+  canDeletePage = false;
 
   var navbar = document.createElement('ul');
 
@@ -124,6 +130,10 @@ function loadSubPages(evt) {
     if (urlParameters["sub_page"] == encodeURI(element.name)) {
       a.setAttribute('class', 'active');
       pageData = element.content;
+
+      if(element.can_delete === '1' ){
+        canDeletePage = true;
+      }
     }
     
     a.innerText = element.name;
@@ -140,6 +150,8 @@ function loadSubPages(evt) {
   
     paragraphs.appendChild(p);
   }
+
+  appendFooter();
 }
 
 function showFooter() {
@@ -147,24 +159,33 @@ function showFooter() {
     var footer = document.getElementById('footer');
 
     var navbar = document.createElement('ul');
+    navbar.setAttribute('id', 'footernav');
+
     var save_li = document.createElement('li');
-    var delete_li = document.createElement('li');
     var save_a = document.createElement('a');
-    var delete_a = document.createElement('a');
 
     save_a.onclick = saveData;
     save_a.innerText = 'Save Content';
-
-    delete_a.onclick = deletePage;
-    delete_a.innerText = 'Delete Page';
-
     save_li.appendChild(save_a);
-    delete_li.appendChild(delete_a);
-
-    navbar.appendChild(save_li);
-    navbar.appendChild(delete_li);
+    navbar.appendChild(save_li);    
 
     footer.appendChild(navbar);
+  }
+}
+
+function appendFooter(){
+  if(getSession()){
+    if(canDeletePage) {
+      var footer = document.getElementById('footernav');
+  
+      var delete_li = document.createElement('li');
+      var delete_a = document.createElement('a');
+  
+      delete_a.onclick = deletePage;
+      delete_a.innerText = 'Delete Page';    
+      delete_li.appendChild(delete_a);    
+      footer.appendChild(delete_li);
+    }
   }
 }
 
