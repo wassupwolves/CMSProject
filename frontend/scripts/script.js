@@ -91,7 +91,8 @@ function loadMainPages(evt) {
   
     paragraphs.appendChild(p);
   }
-  
+
+  showFooter();
 }
 
 loadSubPageNavbar();
@@ -139,6 +140,41 @@ function loadSubPages(evt) {
   
     paragraphs.appendChild(p);
   }
+}
+
+function showFooter() {
+  if(getSession()) {
+    var footer = document.getElementById('footer');
+
+    var navbar = document.createElement('ul');
+    var save_li = document.createElement('li');
+    var delete_li = document.createElement('li');
+    var save_a = document.createElement('a');
+    var delete_a = document.createElement('a');
+
+    save_a.onclick = saveData;
+    save_a.innerText = 'Save Content';
+
+    delete_a.onclick = deletePage;
+    delete_a.innerText = 'Delete Page';
+
+    save_li.appendChild(save_a);
+    delete_li.appendChild(delete_a);
+
+    navbar.appendChild(save_li);
+    navbar.appendChild(delete_li);
+
+    footer.appendChild(navbar);
+  }
+}
+
+function saveData(){
+  console.log('Save');
+}
+
+function deletePage(){
+  console.log('Delete');
+  document.location = '/';
 }
 
 function getUrlVars() {
