@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 03, 2018 at 12:58 AM
+-- Generation Time: Aug 05, 2018 at 09:22 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -76,6 +76,28 @@ INSERT INTO `sub_pages` (`page_id`, `main_page_name`, `name`, `content`, `can_de
 (5, 'Contact', 'Email', '<p>Email page</p>', b'0'),
 (6, 'Home', 'Sub Home Page', '<p>This is a sub-page under Home</p>', b'1'),
 (7, 'Some New Page', 'Some Sub Page', '<p>This is a sub page for the new page we just added</p>', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `session_token` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `session_token`) VALUES
+(1, 'admin', 'password', '');
 
 --
 -- Constraints for dumped tables
