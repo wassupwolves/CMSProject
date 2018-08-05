@@ -28,6 +28,15 @@
         $myArray[] = utf8ize($row);
     }
 
+    if ($myArray[0]["login"]) {
+        $sessionToken = uniqid();
+        
+        $tokenQuery = "update users set session_token = '$sessionToken' where username = '$username';";
+        $mysqli->query($tokenQuery);
+
+        $myArray[0]["token"] = $sessionToken;
+    }
+
     echo json_encode($myArray);
 
     $result->free();

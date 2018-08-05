@@ -59,22 +59,35 @@ function loadMainPages(evt) {
 
   var adminClasses = 'adminButton';
 
-  if(document.location.pathname.startsWith('/admin')) {
+  if(getSession()) {
     adminClasses += ' active';
   }
 
   admin_li.setAttribute('class', adminClasses);
 
-  admin_a.setAttribute('href', '/admin');
-  admin_a.innerText = 'Admin Login';
+  if (getSession()) {
+    admin_a.setAttribute('href', '/');
+    admin_a.onclick = function() {
+      document.cookie += '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+  } else {
+    admin_a.setAttribute('href', '/admin');
 
+  }
+
+  admin_a.innerText = getSession() ? 'Logout' : 'Login';
   admin_li.appendChild(admin_a);
+
   navbar.appendChild(admin_li);
 
   if (!urlParameters['sub_page']) {
     var paragraphs = document.getElementById('content');
     var p = document.createElement('p');
     p.innerHTML = pageContent;
+
+    if (getSession()) {
+      p.contentEditable = 'true';
+    }
   
     paragraphs.appendChild(p);
   }
@@ -134,4 +147,8 @@ function getUrlVars() {
       vars[key] = value;
   });
   return vars;
+}
+
+function getSession() {
+  return document.cookie.includes('token=') ? document.cookie.replace('token=', '') : false;
 }
