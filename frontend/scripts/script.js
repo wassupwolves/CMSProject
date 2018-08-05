@@ -8,6 +8,7 @@ var urlParameters;
 var canDeletePage;
   
 loadMainPageNavbar();
+showFooter();
 
 function loadMainPageNavbar() {
   urlParameters = getUrlVars();
@@ -97,7 +98,6 @@ function loadMainPages(evt) {
     paragraphs.appendChild(p);
   }
 
-  showFooter();
   appendFooter();
 }
 
