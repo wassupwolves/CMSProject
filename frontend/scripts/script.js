@@ -54,6 +54,23 @@ function loadMainPages(evt) {
     navbar.appendChild(li);
   });
 
+  var admin_li = document.createElement('li');
+  var admin_a = document.createElement('a');
+
+  var adminClasses = 'adminButton';
+
+  if(document.location.pathname.startsWith('/admin')) {
+    adminClasses += ' active';
+  }
+
+  admin_li.setAttribute('class', adminClasses);
+
+  admin_a.setAttribute('href', '/admin');
+  admin_a.innerText = 'Admin Login';
+
+  admin_li.appendChild(admin_a);
+  navbar.appendChild(admin_li);
+
   if (!urlParameters['sub_page']) {
     var paragraphs = document.getElementById('content');
     var p = document.createElement('p');
