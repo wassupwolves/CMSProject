@@ -186,7 +186,7 @@ function appendFooter(){
       var delete_a = document.createElement('a');
   
       delete_a.onclick = deletePage;
-      delete_a.innerText = 'Delete Page';    
+      delete_a.innerText = 'Yeet Page';    
       delete_li.appendChild(delete_a);    
       footer.appendChild(delete_li);
     }
