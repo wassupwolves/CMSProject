@@ -30,7 +30,7 @@ function isAdmin(evt) {
       div.appendChild(p);
     } else {
       document.cookie = "token=" + element.token;
-      document.location = 'index.html';
+      document.location = '/?main_page=Home';
     }
   });
 

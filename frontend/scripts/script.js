@@ -60,6 +60,8 @@ function loadMainPages(evt) {
     navbar.appendChild(li);
   });
 
+  makeCreatePageElement(navbar, true);
+
   var admin_li = document.createElement('li');
   var admin_a = document.createElement('a');
 
@@ -72,7 +74,7 @@ function loadMainPages(evt) {
   admin_li.setAttribute('class', adminClasses);
 
   if (getSession()) {
-    admin_a.setAttribute('href', '/');
+    admin_a.setAttribute('href', '/?main_page=Home');
     admin_a.onclick = function() {
       document.cookie += '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
@@ -142,6 +144,8 @@ function loadSubPages(evt) {
 
     navbar.appendChild(li);
   });
+
+  makeCreatePageElement(navbar, false);
 
   if (pageData) {
     var paragraphs = document.getElementById('content');
@@ -226,7 +230,7 @@ function deletePage(){
   request.open('GET', url);
   request.send();
 
-  document.location = '/';
+  document.location = '/?main_page=Home';
 }
 
 function getUrlVars() {
@@ -239,4 +243,46 @@ function getUrlVars() {
 
 function getSession() {
   return document.cookie.includes('token=') ? document.cookie.replace('token=', '') : false;
+}
+
+function makeCreatePageElement(navbar, isMainPage) {
+  if(getSession()) {
+    var create_li = document.createElement('li');
+    var create_a = document.createElement('a');
+
+    var url = '/create.html';
+
+    if(!isMainPage) {
+      url += '?main_page=' + urlParameters['main_page'];
+    }
+
+    create_a.onclick = promptPageName;
+    create_a.setAttribute('href', url);
+    create_a.innerText = '  +  ';
+    create_li.appendChild(create_a);
+    navbar.appendChild(create_li);
+  } 
+}
+
+function promptPageName() {
+  var page = prompt("Please enter page name", "Page name");
+
+  if (!(page == null || page == "")) {
+    if (!getSession())
+      return;
+  
+    var isSubPage = urlParameters["sub_page"];
+    var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
+    var url = 'http://localhost/CMSAssignment/backend/edit_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
+    var request = new XMLHttpRequest();
+    var payload = document.getElementById('cmsContent').innerHTML;
+    request.open('POST', url);
+    request.send(payload);
+    request.onload = function(evt) {
+      if (request.responseText === 'Success!') {
+        alert("Update page content!");
+        location.reload(false);
+      }
+    }
+  }
 }
