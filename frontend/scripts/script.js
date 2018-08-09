@@ -224,7 +224,9 @@ function deletePage(){
 
   var isSubPage = urlParameters["sub_page"];
   var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
-  var url = 'http://localhost/CMSAssignment/backend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
+
+  var url = 'http://localhost/CMSAssignment/backend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
+
   var request = new XMLHttpRequest();
 
   request.open('GET', url);
@@ -290,7 +292,10 @@ function promptPageName() {
       console.log(request.response);
       if (request.responseText === 'Success!') {
         alert("Made new page!");
-        location.reload(false);
+
+        var redirectUrl =  "/?main_page=" + (!isSubPage ? page : urlParameters["main_page"]) + (isSubPage ? "&sub_page=" + page : "");
+
+        document.location = redirectUrl;
       }
     }
   }

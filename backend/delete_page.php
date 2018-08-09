@@ -6,6 +6,13 @@
     $isSubPage = $_REQUEST["isSubPage"];
     $pageName = $_REQUEST["pageName"];
 
+    $parentPage = "";
+
+    if (isset($_REQUEST["parentPage"]))
+        $parentPage = $_REQUEST["parentPage"];
+    else
+        $parentPage = "";
+
     function utf8ize($d) {
         if (is_array($d)) {
             foreach ($d as $k => $v) {
@@ -33,7 +40,7 @@
     if ($resultsArray[0]["matchingUsername"]) {
         $deleteQuery = "
             DELETE FROM " . ($isSubPage == "true" ? "sub_pages" : "main_pages") . "
-            WHERE name='$pageName';
+            WHERE name='$pageName' " . ($isSubPage == true ? "AND main_page_name='$parentPage'" : "") . " ;
         ";
 
         if (!$mysqli->query($deleteQuery)) {
