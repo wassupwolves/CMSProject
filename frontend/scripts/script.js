@@ -229,6 +229,9 @@ function deletePage(){
 
   request.open('GET', url);
   request.send();
+  request.onload = function(evt) {
+    console.log("Response: [" + request.response + "]");
+  }
 
   document.location = '/?main_page=Home';
 }
@@ -245,19 +248,25 @@ function getSession() {
   return document.cookie.includes('token=') ? document.cookie.replace('token=', '') : false;
 }
 
+var lastClickedOnMainPage = false;
+
 function makeCreatePageElement(navbar, isMainPage) {
   if(getSession()) {
     var create_li = document.createElement('li');
     var create_a = document.createElement('a');
 
-    var url = '/create.html';
-
-    if(!isMainPage) {
-      url += '?main_page=' + urlParameters['main_page'];
+    if (isMainPage) {
+      create_a.onclick = function() {
+        lastClickedOnMainPage = true;
+        promptPageName();
+      }
+    } else {
+      create_a.onclick = function() {
+        lastClickedOnMainPage = false;
+        promptPageName();
+      }
     }
 
-    create_a.onclick = promptPageName;
-    create_a.setAttribute('href', url);
     create_a.innerText = '  +  ';
     create_li.appendChild(create_a);
     navbar.appendChild(create_li);
@@ -271,16 +280,16 @@ function promptPageName() {
     if (!getSession())
       return;
   
-    var isSubPage = urlParameters["sub_page"];
-    var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
-    var url = 'http://localhost/CMSAssignment/backend/edit_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
+    var isSubPage = !lastClickedOnMainPage;
+    var url = 'http://localhost/CMSAssignment/backend/create_page.php?token=' + getSession() + '&newPage=' + page + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
+
     var request = new XMLHttpRequest();
-    var payload = document.getElementById('cmsContent').innerHTML;
     request.open('POST', url);
-    request.send(payload);
+    request.send();
     request.onload = function(evt) {
+      console.log(request.response);
       if (request.responseText === 'Success!') {
-        alert("Update page content!");
+        alert("Made new page!");
         location.reload(false);
       }
     }

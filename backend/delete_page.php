@@ -36,7 +36,9 @@
             WHERE name='$pageName';
         ";
 
-        $mysqli->query($deleteQuery);
+        if (!$mysqli->query($deleteQuery)) {
+            echo $mysqli->error;
+        }
     } else {
         echo "403 - Unauthorized.";
     }
