@@ -39,3 +39,16 @@ function isAdmin(evt) {
 
   // Redirect to index(edit) page
 }
+
+function readStyle() {
+  // LOCALHOST
+  var url = 'http://10.10.16.205/cmsbackend/current_style.php';
+
+  var request = new XMLHttpRequest();
+  request.open('GET', url);
+  request.send();
+  request.onload = function(evt) {
+    document.getElementById("currentStyle").innerHTML = request.response;
+  }
+  
+}
