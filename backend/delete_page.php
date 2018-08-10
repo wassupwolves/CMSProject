@@ -40,11 +40,13 @@
     if ($resultsArray[0]["matchingUsername"]) {
         $deleteQuery = "
             DELETE FROM " . ($isSubPage == "true" ? "sub_pages" : "main_pages") . "
-            WHERE name='$pageName' " . ($isSubPage == true ? "AND main_page_name='$parentPage'" : "") . " ;
+            WHERE name='$pageName' " . ($isSubPage == "true" ? "AND main_page_name='$parentPage'" : "") . " ;
         ";
 
         if (!$mysqli->query($deleteQuery)) {
             echo $mysqli->error;
+        } else {
+            echo $deleteQuery;
         }
     } else {
         echo "403 - Unauthorized.";

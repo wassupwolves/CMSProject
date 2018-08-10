@@ -254,15 +254,16 @@ function deletePage(){
 
   var url = 'http://localhost/CMSAssignment/backend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
 
+  console.log(url);
+
   var request = new XMLHttpRequest();
 
   request.open('GET', url);
   request.send();
   request.onload = function(evt) {
     console.log("Response: [" + request.response + "]");
+    document.location = '/?main_page=Home';
   }
-
-  document.location = '/?main_page=Home';
 }
 
 function getUrlVars() {

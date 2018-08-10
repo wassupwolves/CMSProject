@@ -2,8 +2,8 @@
     //set connection variables
 
     $host = "localhost";
-    $username = "spargo";
-    $password = "pass";
+    $username = "jhymas";
+    $password = "password";
     $db_name = "cmsdatabase"; //database name
     //connect to mysql server
     $mysqli = new mysqli($host, $username, $password, $db_name);
