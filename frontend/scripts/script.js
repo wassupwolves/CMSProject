@@ -175,7 +175,31 @@ function showFooter() {
     save_a.onclick = saveData;
     save_a.innerText = 'Save Content';
     save_li.appendChild(save_a);
-    navbar.appendChild(save_li);    
+
+    var styleChooserContainer = document.createElement('li');
+    var styleChooserButton = document.createElement('button');
+    var dropdownHolder = document.createElement('div');
+    var style1 = document.createElement('a');
+    var style2 = document.createElement('a');
+    var style3 = document.createElement('a');
+
+    styleChooserContainer.setAttribute('class', 'dropup');
+    styleChooserButton.setAttribute('class', 'dropbtn');
+    dropdownHolder.setAttribute('class', 'dropup-content');
+
+    styleChooserButton.innerText = 'Styles';
+    style1.innerText = 'Style 1';
+    style2.innerText = 'Style 2';
+    style3.innerText = 'Style 3';
+
+    dropdownHolder.appendChild(style1);
+    dropdownHolder.appendChild(style2);
+    dropdownHolder.appendChild(style3);
+    styleChooserContainer.appendChild(styleChooserButton);
+    styleChooserContainer.appendChild(dropdownHolder);
+
+    navbar.appendChild(save_li);
+    navbar.appendChild(styleChooserContainer);    
 
     footer.appendChild(navbar);
   }
