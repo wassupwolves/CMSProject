@@ -4,13 +4,7 @@
     include "dbconfig.php";
 
     $token = $_REQUEST["token"];
-    $pageName = $_REQUEST["newPage"];
-    $parentPage = "";
-
-    if (isset($_REQUEST["parentPage"]))
-        $parentPage = $_REQUEST["parentPage"];
-    else
-        $parentPage = "";
+    $style = $_REQUEST["style"];
 
     function utf8ize($d) {
         if (is_array($d)) {
@@ -38,15 +32,7 @@
 
     if ($resultsArray[0]["matchingUsername"]) {
 
-        $insertQuery = "";
-
-        if ($parentPage != "") { // Is sub page.
-            $insertQuery = "INSERT INTO sub_pages (main_page_name, name, content, can_delete)
-                                           VALUES ('$parentPage', '$pageName', '<p>Your text here.</p>', 1);";
-        } else { // Is main page.
-            $insertQuery = "INSERT INTO main_pages (name, content, can_delete)
-                                           VALUES ('$pageName', '<p>Your text here.</p>', 1);";
-        }
+        $insertQuery = "UPDATE saved_style SET style_path='style$style';";
 
         if ($mysqli->query($insertQuery)) {
             echo "Success!";

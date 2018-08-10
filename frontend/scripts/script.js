@@ -336,7 +336,6 @@ function readStyle() {
   request.open('GET', url);
   request.send();
   request.onload = function(evt) {
-    console.log(request.response);
     document.getElementById("currentStyle").innerHTML = request.response;
   }
   
@@ -349,7 +348,6 @@ function updateStyle(styleNum) {
   request.open('POST', url);
   request.send();
   request.onload = function(evt) {
-    console.log(request.response);
     if (request.responseText === 'Success!') {
       readStyle();
     }
