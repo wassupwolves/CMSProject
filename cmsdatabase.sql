@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 05, 2018 at 09:22 PM
+-- Generation Time: Aug 10, 2018 at 03:55 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -47,6 +47,24 @@ INSERT INTO `main_pages` (`mainpage_id`, `name`, `content`, `can_delete`) VALUES
 (3, 'Contact', '<p>This is our contact page</p>', b'0'),
 (1, 'Home', '<p>This is our home page</p>\r\n\r\n<p>With a second paragraph</p>', b'0'),
 (4, 'Some New Page', '<p>This is a new test page</p>', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `saved_style`
+--
+
+DROP TABLE IF EXISTS `saved_style`;
+CREATE TABLE IF NOT EXISTS `saved_style` (
+  `style_path` varchar(32) NOT NULL DEFAULT 'style'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `saved_style`
+--
+
+INSERT INTO `saved_style` (`style_path`) VALUES
+('style');
 
 -- --------------------------------------------------------
 
@@ -97,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `session_token`) VALUES
-(1, 'admin', 'password', '');
+(1, 'admin', 'password', '5b6d050a5df36');
 
 --
 -- Constraints for dumped tables
