@@ -186,9 +186,9 @@ function showFooter() {
     styleChooserContainer.setAttribute('class', 'dropup');
     styleChooserButton.setAttribute('class', 'dropbtn');
     dropdownHolder.setAttribute('class', 'dropup-content');
-    style1.onclick = updateStyle;
-    style2.onclick = updateStyle;
-    style3.onclick = updateStyle;
+    style1.addEventListener("click", function() { updateStyle(1); });
+    style2.addEventListener("click", function() { updateStyle(2); });
+    style3.addEventListener("click", function() { updateStyle(3); });
 
     styleChooserButton.innerText = 'Styles';
     style1.innerText = 'Style 1';
@@ -326,8 +326,32 @@ function promptPageName() {
       }
     }
   }
+}
 
-  function updateStyle() {
-    
+readStyle();
+function readStyle() {
+  var url = 'http://localhost/CMSAssignment/backend/current_style.php';
+
+  var request = new XMLHttpRequest();
+  request.open('GET', url);
+  request.send();
+  request.onload = function(evt) {
+    console.log(request.response);
+    document.getElementById("currentStyle").innerHTML = request.response;
+  }
+  
+}
+
+function updateStyle(styleNum) {
+  var url = 'http://localhost/CMSAssignment/backend/update_style.php?token=' + getSession() + '&style=' + styleNum;
+
+  var request = new XMLHttpRequest();
+  request.open('POST', url);
+  request.send();
+  request.onload = function(evt) {
+    console.log(request.response);
+    if (request.responseText === 'Success!') {
+      readStyle();
+    }
   }
 }
