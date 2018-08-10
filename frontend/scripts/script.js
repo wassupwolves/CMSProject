@@ -20,7 +20,7 @@ function loadMainPageNavbar() {
     currentMainPage = "Home";
 
   // LOCALHOST
-  mainPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/main_page_api.php');
+  mainPageDataRequest.open('GET', 'http://10.10.16.205/cmsbackend/main_page_api.php');
   mainPageDataRequest.onload = loadMainPages;
   mainPageDataRequest.send();
 }
@@ -108,7 +108,7 @@ loadSubPageNavbar();
 
 function loadSubPageNavbar() {
   // LOCALHOST
-  subPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/sub_page_api.php?mainpage_name=' + currentMainPage);
+  subPageDataRequest.open('GET', 'http://10.10.16.205/cmsbackend/sub_page_api.php?mainpage_name=' + currentMainPage);
   subPageDataRequest.onload = loadSubPages;
   subPageDataRequest.send();
 }
@@ -235,7 +235,7 @@ function saveData(){
   var isSubPage = urlParameters["sub_page"];
   var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
   // LOCALHOST
-  var url = 'http://localhost/CMSAssignment/backend/edit_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
+  var url = 'http://10.10.16.205/cmsbackend/edit_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
   var request = new XMLHttpRequest();
   var payload = document.getElementById('cmsContent').innerHTML;
   request.open('POST', url);
@@ -256,7 +256,7 @@ function deletePage(){
   var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
 
   // LOCALHOST
-  var url = 'http://localhost/CMSAssignment/backend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
+  var url = 'http://10.10.16.205/cmsbackend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
 
   console.log(url);
 
@@ -316,7 +316,7 @@ function promptPageName() {
   
     var isSubPage = !lastClickedOnMainPage;
     // LOCALHOST
-    var url = 'http://localhost/CMSAssignment/backend/create_page.php?token=' + getSession() + '&newPage=' + page + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
+    var url = 'http://10.10.16.205/cmsbackend/create_page.php?token=' + getSession() + '&newPage=' + page + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
 
     var request = new XMLHttpRequest();
     request.open('POST', url);
@@ -337,7 +337,7 @@ function promptPageName() {
 readStyle();
 function readStyle() {
   // LOCALHOST
-  var url = 'http://localhost/CMSAssignment/backend/current_style.php';
+  var url = 'http://10.10.16.205/cmsbackend/current_style.php';
 
   var request = new XMLHttpRequest();
   request.open('GET', url);
@@ -350,7 +350,7 @@ function readStyle() {
 
 function updateStyle(styleNum) {
   // LOCALHOST
-  var url = 'http://localhost/CMSAssignment/backend/update_style.php?token=' + getSession() + '&style=' + styleNum;
+  var url = 'http://10.10.16.205/cmsbackend/update_style.php?token=' + getSession() + '&style=' + styleNum;
 
   var request = new XMLHttpRequest();
   request.open('POST', url);

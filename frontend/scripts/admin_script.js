@@ -8,7 +8,7 @@ function verifyLogin() {
   password = document.getElementById('password').value;
 
   // LOCALHOST
-  request.open('GET', 'http://localhost/CMSAssignment/backend/login_api.php?username=' + username + '&password=' + password);
+  request.open('GET', 'http://10.10.16.205/cmsbackend/login_api.php?username=' + username + '&password=' + password);
   request.onload = isAdmin;
   request.send();
 }
