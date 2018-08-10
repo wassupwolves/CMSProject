@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
     margin: 0;
     /* background: url("../res/pep_boys_logo.jpg"); */
+}
+
+html {
+    font-family: 'Open Sans', 'sans-serif';
 }
 
 ul {
@@ -46,7 +52,7 @@ li a:hover {
 }
 
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: firebrick;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -81,5 +87,5 @@ li a:hover {
 }
 
 .dropup:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: firebrick;
 }

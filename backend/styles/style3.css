@@ -1,8 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Righteous');
-
+html {
+    font-family: 'Comic Sans MS';
+}
 body {
     margin: 0;
-    /* background: url("../res/pep_boys_logo.jpg"); */
+    background-color: magenta;
+    color: white;
+    background-image: url(../res/thomas2.png);
+    background-repeat: repeat;
+}
+
+#cmsContent {
+    background-color: rgba(150, 0, 150, 0.5);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+body p {
+    font-size: 1.5em;
 }
 
 ul {
@@ -31,7 +46,7 @@ li a:hover {
 }
 
 .active {
-    background-color: firebrick;
+    background-color: magenta;
 }
 
 .adminButton {
@@ -48,7 +63,8 @@ li a:hover {
 }
 
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: #333;
+    font-family: "Comic Sans MS";
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -83,5 +99,5 @@ li a:hover {
 }
 
 .dropup:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: rgb(197, 0, 197);
 }

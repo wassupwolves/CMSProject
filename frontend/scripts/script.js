@@ -191,9 +191,9 @@ function showFooter() {
     style3.addEventListener("click", function() { updateStyle(3); });
 
     styleChooserButton.innerText = 'Styles';
-    style1.innerText = 'Style 1';
-    style2.innerText = 'Style 2';
-    style3.innerText = 'Style 3';
+    style1.innerText = 'House';
+    style2.innerText = 'Tropical Punch';
+    style3.innerText = "Clickbeatty";
 
     dropdownHolder.appendChild(style1);
     dropdownHolder.appendChild(style2);
