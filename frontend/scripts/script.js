@@ -186,6 +186,9 @@ function showFooter() {
     styleChooserContainer.setAttribute('class', 'dropup');
     styleChooserButton.setAttribute('class', 'dropbtn');
     dropdownHolder.setAttribute('class', 'dropup-content');
+    style1.onclick = updateStyle;
+    style2.onclick = updateStyle;
+    style3.onclick = updateStyle;
 
     styleChooserButton.innerText = 'Styles';
     style1.innerText = 'Style 1';
@@ -322,5 +325,9 @@ function promptPageName() {
         document.location = redirectUrl;
       }
     }
+  }
+
+  function updateStyle() {
+    
   }
 }
