@@ -16,6 +16,7 @@ body {
     border-radius: 5px;
     margin-left: 10px;
     margin-right: 10px;
+    text-align: center;
 }
 
 body p {
@@ -27,7 +28,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: turquoise;
 }
 
 li {
@@ -44,7 +45,7 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: yellow;
     
     background-image: url(../res/thomas2.png);
     background-size: contain;
@@ -63,12 +64,12 @@ li a:hover {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #333;
+    background-color: turquoise;
     text-align: center;
 }
 
 .dropbtn {
-    background-color: #333;
+    background-color: turquoise;
     font-family: "Comic Sans MS";
     color: white;
     padding: 16px;

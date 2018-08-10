@@ -4,7 +4,20 @@
 
 body {
     margin: 0;
-    background: url("../res/pep_boys_logo.jpg");
+    font-family: "Roboto";
+    background-color: rgb(255, 201, 126);
+    background-image: url("../res/palm_blue.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: right top;
+    /* background: url("../res/pep_boys_logo.jpg"); */
+}
+
+#cmsContent {
+    background-color: rgba(255, 226, 184, 0.692);
+    border-radius: 15px;
+    margin: 25px;
+    padding: 10px;
 }
 
 ul {
@@ -12,7 +25,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #0F0E38;
 }
 
 li {
@@ -25,15 +38,18 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    width: 150px;
+    font-family: 'Raleway';
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: rgb(236, 115, 2);
+    transition: background-color 1.5s;
 }
 
 .active {
-    background-color: firebrick;
+    background-color: rgb(0, 196, 166);
 }
 
 .adminButton {
@@ -50,11 +66,13 @@ li a:hover {
 }
 
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: rgb(0, 196, 166);
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
+    font-family: "Raleway";
+    width: 150px;
 }
 
 .dropup {
@@ -78,12 +96,12 @@ li a:hover {
     display: block;
 }
 
-.dropup-content a:hover {background-color: #ccc}
+.dropup-content a:hover {background-color: #ccc; cursor: pointer;}
 
 .dropup:hover .dropup-content {
     display: block;
 }
 
 .dropup:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: rgb(0, 128, 108);
 }

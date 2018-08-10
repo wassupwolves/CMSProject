@@ -1,14 +1,26 @@
 /* HOUSE */
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Do+Hyeon');
 
 body {
     margin: 0;
-    /* background: url("../res/pep_boys_logo.jpg"); */
+    background: url("../res/brick.jpg");
+    background-color: rgba(0, 0, 0, 0.5);
+    background-size: 100%;
+}
+
+#cmsContent {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 html {
     font-family: 'Open Sans', 'sans-serif';
+}
+
+p {
+    color: white;
+    font-size: 2em;
 }
 
 ul {
@@ -29,6 +41,8 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-family: 'Do Hyeon';
+    text-transform: uppercase;
 }
 
 /* Change the link color to #111 (black) on hover */
@@ -59,6 +73,8 @@ li a:hover {
     padding: 16px;
     font-size: 16px;
     border: none;
+    font-family: 'Do Hyeon';
+    text-transform: uppercase;
 }
 
 .dropup {
