@@ -19,6 +19,7 @@ function loadMainPageNavbar() {
   if (!currentMainPage)
     currentMainPage = "Home";
 
+  // LOCALHOST
   mainPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/main_page_api.php');
   mainPageDataRequest.onload = loadMainPages;
   mainPageDataRequest.send();
@@ -106,6 +107,7 @@ function loadMainPages(evt) {
 loadSubPageNavbar();
 
 function loadSubPageNavbar() {
+  // LOCALHOST
   subPageDataRequest.open('GET', 'http://localhost/CMSAssignment/backend/sub_page_api.php?mainpage_name=' + currentMainPage);
   subPageDataRequest.onload = loadSubPages;
   subPageDataRequest.send();
@@ -232,6 +234,7 @@ function saveData(){
 
   var isSubPage = urlParameters["sub_page"];
   var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
+  // LOCALHOST
   var url = 'http://localhost/CMSAssignment/backend/edit_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName;
   var request = new XMLHttpRequest();
   var payload = document.getElementById('cmsContent').innerHTML;
@@ -252,6 +255,7 @@ function deletePage(){
   var isSubPage = urlParameters["sub_page"];
   var pageName = urlParameters[isSubPage ? "sub_page" : "main_page"];
 
+  // LOCALHOST
   var url = 'http://localhost/CMSAssignment/backend/delete_page.php?token=' + getSession() + '&isSubPage=' + (isSubPage ? true : false) + '&pageName=' + pageName + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
 
   console.log(url);
@@ -311,6 +315,7 @@ function promptPageName() {
       return;
   
     var isSubPage = !lastClickedOnMainPage;
+    // LOCALHOST
     var url = 'http://localhost/CMSAssignment/backend/create_page.php?token=' + getSession() + '&newPage=' + page + (isSubPage ? "&parentPage=" + urlParameters["main_page"] : "");
 
     var request = new XMLHttpRequest();
@@ -331,6 +336,7 @@ function promptPageName() {
 
 readStyle();
 function readStyle() {
+  // LOCALHOST
   var url = 'http://localhost/CMSAssignment/backend/current_style.php';
 
   var request = new XMLHttpRequest();
@@ -343,6 +349,7 @@ function readStyle() {
 }
 
 function updateStyle(styleNum) {
+  // LOCALHOST
   var url = 'http://localhost/CMSAssignment/backend/update_style.php?token=' + getSession() + '&style=' + styleNum;
 
   var request = new XMLHttpRequest();

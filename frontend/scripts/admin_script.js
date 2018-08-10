@@ -7,6 +7,7 @@ function verifyLogin() {
   username = document.getElementById('username').value;
   password = document.getElementById('password').value;
 
+  // LOCALHOST
   request.open('GET', 'http://localhost/CMSAssignment/backend/login_api.php?username=' + username + '&password=' + password);
   request.onload = isAdmin;
   request.send();
